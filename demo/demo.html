@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Lazy Load Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="../jquery.recliner.js"></script>
+
+    <script>
+        $(window).load(function() {
+            $('.lazy').recliner({
+              throttle: 300,      // milisecond interval at which to process events
+              threshold: 100,     // scroll distance to element before its loaded
+              live: true,         // handle ajax loaded elements            
+            });
+
+            // handle lazyshow events
+            $(document).on('lazyshow', '.lazy', function(e) {
+                var $e = $(this);
+                //console.log('lazyshow', e);
+            });
+        });
+    </script>
+
+    <style>
+        img.lazy {
+            margin-bottom:300px;
+            width: 320px;
+            height: 200px;
+            border: 1px solid #e5e5e5;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lazy Load Videos</h1>
+
+    <h3>Image 1</h3>
+    <img class="lazy" data-src="http://sourcey.com/conquering-the-internet/miyamoto-musashi-320x200.jpg" />
+
+    <h3>Image 2</h3>
+    <img class="lazy" data-src="http://sourcey.com/conquering-the-internet/miyamoto-musashi-320x200.jpg" />
+
+    <h3>Image 3</h3>
+    <img class="lazy" data-src="http://sourcey.com/conquering-the-internet/miyamoto-musashi-320x200.jpg" />
+
+    <h3>Image 4</h3>
+    <img class="lazy" data-src="http://sourcey.com/conquering-the-internet/miyamoto-musashi-320x200.jpg" />
+
+    <h3>Image 5</h3>
+    <img class="lazy" data-src="http://sourcey.com/conquering-the-internet/miyamoto-musashi-320x200.jpg" />
+
+    <h3>AJAX Element</h3>
+    <div id="ajax" class="lazy" data-src="ajaxcontent.html">
+    </div>
+</body>
+</html>
