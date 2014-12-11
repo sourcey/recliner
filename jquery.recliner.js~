@@ -106,6 +106,7 @@
       $(document).ajaxSuccess(function(event, xhr, settings) {
         var $e = $(selector).not('.lazy-loaded').not('.lazy-loading');
         
+        console.log('ajax added', $(selector).length, $e.length);
         elements = elements.add($e);
         init($e);
       });
