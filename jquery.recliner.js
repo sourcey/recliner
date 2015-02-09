@@ -18,10 +18,10 @@
       loaded,
       timer,
       options = $.extend({
-        attrib: "data-src", // lazy element selector
-        throttle: 300,      // milisecond interval at which to process events
-        threshold: 100,     // scroll distance from element before its loaded
-        live: false,        // handle ajax loaded elements
+        attrib: "data-src", // attribute selector containing the media src
+	    throttle: 300,      // millisecond interval at which to process events
+	    threshold: 100,     // scroll distance from element before its loaded
+	    live: true          // auto bind lazy loading to ajax loaded elements
       }, options);
 
     // load the element source
@@ -103,7 +103,7 @@
 
     // handle elements loaded into the dom via ajax
     if (options.live) {
-      $(document).ajaxSuccess(function(event, xhr, settings) {
+      $(document).ajaxSuccess(function(ev, xhr, settings) {
         var $e = $(selector).not('.lazy-loaded').not('.lazy-loading');
         
         elements = elements.add($e);

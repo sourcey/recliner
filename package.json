@@ -1,0 +1,14 @@
+{
+    "name" : "recliner",
+    "title" : "Recliner.js",
+    "version" : "0.1.0",
+    "repository" : { 
+        "type" : "git", 
+        "url" : "http://github.com/sourcey/recliner.git"
+    },
+    "devDependencies": {    
+        "grunt": "~0.4.2",
+        "grunt-contrib-watch" : "~0.5.3",
+        "grunt-contrib-uglify" : "~0.2.0"
+    }
+}
