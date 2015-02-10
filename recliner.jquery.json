@@ -1,7 +1,7 @@
 {
     "name": "recliner",
-    "title": "Recliner",
-    "description": "A lightweight production ready jQuery plugin to lazy load images and other dynamic content.",
+    "title": "Recliner.js",
+    "description": "A lightweight production ready jQuery plugin for lazy loading images and other dynamic content.",
     "keywords": [
         "lazy",
         "lazy load",
@@ -27,7 +27,7 @@
         }
     ],
     "bugs": "https://github.com/sourcey/recliner/issues",
-    "homepage": "https://github.com/sourcey/recliner",
+    "homepage": "https://sourcey.com/recliner",
     "docs": "https://github.com/sourcey/recliner",
     "download": "https://github.com/sourcey/recliner/archive/master.zip",
     "dependencies": {

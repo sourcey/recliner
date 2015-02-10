@@ -4,12 +4,12 @@ module.exports = function (grunt) {
         uglify: {
             js: {
                 files: {
-                    'jquery.recliner.min.js': ['jquery.recliner.js']
+                    'recliner.min.js': ['recliner.js']
                 }
             }
         },
         watch: {
-          files: ['jquery.recliner.js'],
+          files: ['recliner.js'],
           tasks: ['uglify']
        }
     });

@@ -2,56 +2,72 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Lazy Load Demo</title>
+    <title>Recliner.js Lazy Load Demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="../jquery.recliner.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="../recliner.min.js"></script>
 
     <script>
-        $(window).load(function() {
+        $(function() {
+        
+            // instantiate recliner
             $('.lazy').recliner({
-              throttle: 300,      // milisecond interval at which to process events
-              threshold: 100,     // scroll distance to element before its loaded
-              live: true,         // handle ajax loaded elements            
+                attrib: "data-src", // selector for attribute containing the media src
+                throttle: 300,      // millisecond interval at which to process events
+                threshold: 100,     // scroll distance from element before its loaded
+                live: true          // auto bind lazy loading to ajax loaded elements          
+            });
+
+            // handle lazyload events
+            $(document).on('lazyload', '.lazy', function() {
+                var $e = $(this);
+                // do something with the element to be loaded...
+                console.log('lazyload', $e);
             });
 
             // handle lazyshow events
-            $(document).on('lazyshow', '.lazy', function(e) {
+            $(document).on('lazyshow', '.lazy', function() {
                 var $e = $(this);
-                //console.log('lazyshow', e);
+                // do something with the loaded element...
+                console.log('lazyshow', $e);
             });
         });
     </script>
 
     <style>
-        img.lazy {
-            margin-bottom:300px;
+        .lazy {
+            margin-bottom:30px;
             width: 320px;
             height: 200px;
-            border: 1px solid #e5e5e5;
+            outline: 0;
+            box-shadow: 0px 2px 4px #999;
+            background: url(loader.gif) no-repeat center;
+        }
+        .lazy-loaded {
+            background-image: none;
         }
     </style>
 </head>
 <body>
-    <h1>Lazy Load Videos</h1>
+    <h1>Recliner.js Lazy Load Demo</h1>
+    <a href="http://sourcey.com/recliner">Homepage</a>
 
     <h3>Image 1</h3>
-    <img class="lazy" data-src="http://sourcey.com/conquering-the-internet/miyamoto-musashi-320x200.jpg" />
+    <img class="lazy" data-src="http://sourcey.com/images/stock/xiao-feng-lsd-320x200.jpg" />
 
     <h3>Image 2</h3>
-    <img class="lazy" data-src="http://sourcey.com/conquering-the-internet/miyamoto-musashi-320x200.jpg" />
+    <img class="lazy" data-src="http://sourcey.com/images/stock/xiao-feng-dmt-320x200.jpg" />
 
     <h3>Image 3</h3>
-    <img class="lazy" data-src="http://sourcey.com/conquering-the-internet/miyamoto-musashi-320x200.jpg" />
+    <img class="lazy" data-src="http://sourcey.com/images/stock/miyamoto-musashi-320x200.jpg" />
 
     <h3>Image 4</h3>
-    <img class="lazy" data-src="http://sourcey.com/conquering-the-internet/miyamoto-musashi-320x200.jpg" />
+    <img class="lazy" data-src="http://sourcey.com/images/stock/logic-vs-art-320x200.jpg" />
 
-    <h3>Image 5</h3>
-    <img class="lazy" data-src="http://sourcey.com/conquering-the-internet/miyamoto-musashi-320x200.jpg" />
+    <h3>IFrame Element</h3>
+    <iframe class="lazy" data-src="randomcontent.html" frameborder="0" vspace="0" hspace="0"></iframe>
 
     <h3>AJAX Element</h3>
-    <div id="ajax" class="lazy" data-src="ajaxcontent.html">
-    </div>
+    <div class="lazy" data-src="randomcontent.html"></div>
 </body>
 </html>
