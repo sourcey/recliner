@@ -1,7 +1,7 @@
 /**
  * jQuery Recliner
- * A lightweight production ready jQuery plugin 
- * to lazy load images and other dynamic content.
+ * A super lightweight production ready jQuery plugin 
+ * for lazy loading images and other dynamic content.
  *
  * Licensed under the MIT license.
  * Copyright 2014 Kam Low

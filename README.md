@@ -1,54 +1,96 @@
 # Recliner.js
    
-Recliner is a super-lightweight (1KB), production ready jQuery plugin for lazy loading images and other dynamic content. Being lazy never felt so good, just hook it up, start sippin' on your margarita!
+Recliner is a super lightweight (1KB), jQuery plugin for lazy loading images, iframes and other dynamic (AJAX) content.
 
-## Why use Recliner?
+For more information and demos see the original project page: [http://sourcey.com/recliner](http://sourcey.com/recliner)
 
-So why another lazy loading implementation? Recliner was born out of necessity when one of our clients was experiencing massive scrolling lag on the mobile version of their media heavy site. It turned out that `lazy-load-xt` was the culprit, and after testing all the other lazy load scripts **none** of them meet our simple criteria:
+The script was born out of necessity when one of our clients was experiencing massive scroll lag on the mobile version of one of their media heavy news sites. It turned out that `lazy-load-xt` was the culprit, so we tested the other lazy load scripts out there but **none** of them meet our simple criteria:
 
 * Lightweight
 * Sets stateful CSS classes on elements
 * Ability to override event callbacks for custom behaviour
-* Can load both images and other dynamic (AJAX) content
+* Can load *any* dynamic content (images, iframes, AJAX) 
+* Mobile friendly
 
-## Using Recliner
+Recliner is currently used on some very high traffic sites, so it's well tested and production ready. Being lazy never felt so good, just hook it up, and start sippin' your margaritas!
 
-Instantiate Recliner like so:
+## Usage
+
+You can use Recliner to dynamically load a range of different content. Note that it's good practice to manually specify image dimensions so your page height doesn't go berserk as lazy content is loading.
+
+##### Images
+
+``` html
+<img src="some-placeholder-image.png" data-src="image-to-lazy-load.png" width="333" height="333" /> 
+```
+
+##### iFrames
+
+``` html
+<iframe data-src="http://sourcey.com" width="333" height="333"></iframe>
+```
+
+##### AJAX
+
+``` html
+<div data-src="http://sourcey.com" style="width:333px;height:333px">
+    Loading, be patient damnit!
+</div>
+```
+
+Instantiate Recliner on document load like so:
 
 ``` javascript
-$(".lazy").recliner({
-    attrib: "data-src", // attribute selector containing the media src
-	throttle: 300,      // millisecond interval at which to process events
-	threshold: 100,     // scroll distance from element before its loaded
-	live: true          // auto bind lazy loading to ajax loaded elements
+$(function() {
+    $(".lazy").recliner({
+        attrib: "data-src", // attribute selector that contains the media src
+        throttle: 300,      // millisecond interval at which to process events
+        threshold: 100,     // scroll distance from element before its loaded
+        live: true          // auto bind lazy loading to ajax loaded elements
+    });
 });
 ```
+
+You can also progrmatically trigger an update to check for new elements to be loaded (this may be necessary in some egde cases):
+
+``` javascript
+$(window).trigger("lazyupdate");
+```
+
+## Callbacks
 
 Recliner uses a simple event based API for implementing custom behaviour:
 
+##### lazyload
+
+The `lazyload` event will be triggered on elements that are about to be loaded.
+
 ``` javascript
-// Do something with elements that are about to be loaded
 $(document).on('lazyload', '.lazy', function() {
     var $e = $(this);
-    console.log('lazyshow after', $e);
+    // do something with the element to be loaded...
+    console.log('lazyload', $e);
 });
+```
     
-// Do something with elements after they have been loaded
+##### lazyshow
+
+The `lazyshow` event will be triggered on elements after they have been loaded.
+    
+``` javascript
 $(document).on('lazyshow', '.lazy', function() {
     var $e = $(this);
-    console.log('lazyshow after', $e);
+    // do something with the loaded element...
+    console.log('lazyshow', $e);
 });
-
-// Force an update to check for new elements to be loaded
-$(window).trigger("lazyupdate");
 ```
+
+## Stateful Classes
 
 Recliner will set the following stateful CSS classes of your elements:
 
 * `lazy-loading`: The element is currently being loaded
 * `lazy-loaded`: The element has loaded
-
-What more do you need?
 
 ## Contributing
 
