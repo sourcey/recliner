@@ -16,8 +16,6 @@ Recliner is currently used on some very high traffic sites, so it's well tested 
 
 ## Usage
 
-You can use Recliner to dynamically load a range of different content. Note that it's good practice to manually specify image dimensions so your page height doesn't go berserk as lazy content is loading.
-
 Add jQuery (2.x or 1.x) and Recliner to your HTML source:
 
 ``` html
@@ -44,13 +42,15 @@ You can also progrmatically trigger an update to check for new elements to be lo
 $(window).trigger("lazyupdate");
 ```
 
+You can use Recliner to load a range of different dynamic content. Note that it's good practice to manually specify image dimensions so your page height doesn't go berserk as lazy content is loading.
+
 ##### Images
 
 ``` html
 <img src="some-placeholder-image.png" data-src="image-to-lazy-load.png" class="lazy" width="333" height="333" /> 
 ```
 
-##### iFrames
+##### IFrames
 
 ``` html
 <iframe data-src="http://sourcey.com" width="333" height="333" class="lazy" frameborder="0" vspace="0" hspace="0"></iframe>

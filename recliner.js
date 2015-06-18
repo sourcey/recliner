@@ -19,20 +19,20 @@
       timer,
       options = $.extend({
         attrib: "data-src", // selector for attribute containing the media src
-	    throttle: 300,      // millisecond interval at which to process events
-	    threshold: 100,     // scroll distance from element before its loaded
-	    live: true          // auto bind lazy loading to ajax loaded elements
+	      throttle: 300,      // millisecond interval at which to process events
+	      threshold: 100,     // scroll distance from element before its loaded
+	      live: true          // auto bind lazy loading to ajax loaded elements
       }, options);
 
     // load the element source
     function load(e) {
       var $e = $(e),
         source = $e.attr(options.attrib);
-        type = $e.prop("tagName");
+        type = $e.prop('tagName');
       if (source) {
         //console.log('source', source)
         if (type == 'IMG' || type == 'IFRAME') {
-          $e.attr("src", source);
+          $e.attr('src', source);
         }
         else {
 
@@ -63,7 +63,7 @@
     function process() {
       var inview = elements.filter(function() {
         var $e = $(this);
-        if ($e.is(":hidden")) return;
+        if ($e.is(':hidden')) return;
 
         var wt = $w.scrollTop(),
             wb = wt + $w.height(),
@@ -115,4 +115,4 @@
     return this;
   };
 
-})(window.jQuery || window.Zepto);
+})(window.jQuery);
