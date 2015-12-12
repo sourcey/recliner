@@ -1,7 +1,7 @@
 {
   "name": "recliner",
   "main": "recliner.js",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "homepage": "http://sourcey.com/recliner",
   "authors": [
     "Kam <auscaster@gmail.com>"
@@ -10,10 +10,7 @@
   "keywords": [
     "lazy",
     "lazy load",
-    "lazy loader",
-    "lazy loading",
-    "lightweight",
-    "plugin"
+    "jquery-plugin"
   ],
   "license": "MIT",
   "ignore": [

@@ -5,10 +5,9 @@
     "keywords": [
         "lazy",
         "lazy load",
-        "lazy loader",
-        "lazy loading"
+        "jquery-plugin"
     ],
-    "version": "0.2.1",
+    "version": "0.2.2",
     "author": {
         "name": "Sourcey",
         "url": "http://sourcey.com"

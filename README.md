@@ -1,8 +1,6 @@
 # Recliner.js
    
-Recliner is a super lightweight (1KB) jQuery plugin for lazy loading images, iframes and other dynamic (AJAX) content.
-
-For more information and a live demo see the project page: [http://sourcey.com/recliner](http://sourcey.com/recliner)
+Recliner is a super lightweight (1KB) jQuery plugin for lazy loading images, iframes and other dynamic (AJAX) content. Being lazy never felt so good, just hook it up, and start sippin' those margaritas!
 
 The script was born out of necessity when one of our clients was experiencing massive scroll lag on the mobile version of one of their media heavy news sites. It turned out that `lazy-load-xt` was the culprit, so we tested the other lazy load scripts out there but **none** of them met our simple criteria:
 
@@ -12,7 +10,23 @@ The script was born out of necessity when one of our clients was experiencing ma
 * Can load *any* dynamic content (images, iframes, AJAX) 
 * Mobile friendly
 
-Recliner is currently used on some very high traffic sites, so it's well tested and production ready. Being lazy never felt so good, just hook it up, and start sippin' those margaritas!
+Recliner is currently used on some very high traffic sites, so it's well tested and production ready. For more information and a live demo see the project page: [http://sourcey.com/recliner](http://sourcey.com/recliner)
+
+## Installation
+
+If you use `bower` then type:
+
+```bash
+bower install recliner
+```
+
+Or if you like using `npm` then go ahead and type:
+
+```bash
+npm install jquery-recliner
+```
+
+Otherwise, just download `recliner.min.js` and stick it in your assets folder :)
 
 ## Usage
 
