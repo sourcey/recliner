@@ -96,7 +96,6 @@
 
     // bind lazy loading events
     $w.on("scroll.lazy resize.lazy lookup.lazy", function(ev) {
-
       if (timer)
         clearTimeout(timer); // throttle events for best performance
       timer = setTimeout(function() { $w.trigger("lazyupdate"); }, options.throttle);

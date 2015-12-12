@@ -1,14 +1,14 @@
 {
     "name": "recliner",
     "title": "Recliner.js",
-    "description": "A lightweight production ready jQuery plugin for lazy loading images and other dynamic content.",
+    "description": "Recliner is a super lightweight (1KB) production ready jQuery plugin for lazy loading images, iframes and other dynamic (AJAX) content.",
     "keywords": [
         "lazy",
         "lazy load",
         "lazy loader",
         "lazy loading"
     ],
-    "version": "1.0.0",
+    "version": "0.2.1",
     "author": {
         "name": "Sourcey",
         "url": "http://sourcey.com"
