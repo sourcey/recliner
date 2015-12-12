@@ -4,7 +4,7 @@ Recliner is a super lightweight (1KB) jQuery plugin for lazy loading images, ifr
 
 For more information and a live demo see the project page: [http://sourcey.com/recliner](http://sourcey.com/recliner)
 
-The script was born out of necessity when one of our clients was experiencing massive scroll lag on the mobile version of one of their media heavy news sites. It turned out that `lazy-load-xt` was the culprit, so we tested the other lazy load scripts out there but **none** of them meet our simple criteria:
+The script was born out of necessity when one of our clients was experiencing massive scroll lag on the mobile version of one of their media heavy news sites. It turned out that `lazy-load-xt` was the culprit, so we tested the other lazy load scripts out there but **none** of them met our simple criteria:
 
 * Lightweight
 * Sets stateful CSS classes on elements
@@ -12,7 +12,7 @@ The script was born out of necessity when one of our clients was experiencing ma
 * Can load *any* dynamic content (images, iframes, AJAX) 
 * Mobile friendly
 
-Recliner is currently used on some very high traffic sites, so it's well tested and production ready. Being lazy never felt so good, just hook it up, and start sippin' your margaritas!
+Recliner is currently used on some very high traffic sites, so it's well tested and production ready. Being lazy never felt so good, just hook it up, and start sippin' those margaritas!
 
 ## Usage
 
@@ -42,9 +42,12 @@ You can also progrmatically trigger an update to check for new elements to be lo
 $(window).trigger("lazyupdate");
 ```
 
-You can use Recliner to load a range of different dynamic content. Note that it's good practice to manually specify image dimensions so your page height doesn't go berserk as lazy content is loading.
+Recliner can be used to load a range of different dynamic content. 
+
 
 ##### Images
+
+**Note:** It's a idea to manually specify image dimensions so your page height doesn't go berserk as lazy content is loaded into the DOM.
 
 ``` html
 <img src="some-placeholder-image.png" data-src="image-to-lazy-load.png" class="lazy" width="333" height="333" /> 
@@ -66,7 +69,7 @@ You can use Recliner to load a range of different dynamic content. Note that it'
 
 ## Callbacks
 
-Recliner uses a simple event based API for implementing custom behaviour:
+Recliner exposes a simple event based API so you can implement your own custom behaviour using callbacks:
 
 ##### lazyload
 
@@ -94,10 +97,10 @@ $(document).on('lazyshow', '.lazy', function() {
 
 ## Styling
 
-Recliner will set the following stateful CSS classes of your elements:
+Recliner will set the following stateful CSS classes on your elements:
 
-* `lazy-loading`: The element is currently being loaded
-* `lazy-loaded`: The element has loaded
+* `lazy-loading`: Set while the element is being loaded
+* `lazy-loaded`: Set when the element has loaded
 
 Using the stateful classes you can add some fancy transitions to your images:
 
