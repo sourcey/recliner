@@ -1,6 +1,6 @@
 # Recliner.js
    
-Recliner is a super lightweight (1KB), jQuery plugin for lazy loading images, iframes and other dynamic (AJAX) content.
+Recliner is a super lightweight (1KB) jQuery plugin for lazy loading images, iframes and other dynamic (AJAX) content.
 
 For more information and a live demo see the project page: [http://sourcey.com/recliner](http://sourcey.com/recliner)
 
