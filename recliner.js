@@ -65,8 +65,13 @@
         var $e = $(this);
         if ($e.is(':hidden')) return;
 
+        // If no Doctype is declared jquery's $(window).height() does not work properly
+        // See http://stackoverflow.com/a/25274520/322253
+        // Therefore use innerHeight instead (if it's available)
+        var viewportHeight = (typeof window.innerHeight !== 'undefined') ? window.innerHeight : $w.height()
+        
         var wt = $w.scrollTop(),
-            wb = wt + $w.height(),
+            wb = wt + viewportHeight,
             et = $e.offset().top,
             eb = et + $e.height();
       
