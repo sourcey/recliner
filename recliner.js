@@ -1,6 +1,6 @@
 /**
  * Recliner.js
- * A super lightweight production ready jQuery plugin 
+ * A super lightweight production ready jQuery plugin
  * for lazy loading images and other dynamic content.
  *
  * Licensed under the MIT license.
@@ -21,6 +21,7 @@
         attrib: "data-src", // selector for attribute containing the media src
 	      throttle: 300,      // millisecond interval at which to process events
 	      threshold: 100,     // scroll distance from element before its loaded
+	      printable: true,    // be printer friendly and show all elements on document print
 	      live: true          // auto bind lazy loading to ajax loaded elements
       }, options);
 
@@ -30,7 +31,6 @@
         source = $e.attr(options.attrib);
         type = $e.prop('tagName');
       if (source) {
-        //console.log('source', source)
         if (type == 'IMG' || type == 'IFRAME') {
           $e.attr('src', source);
         }
@@ -48,7 +48,7 @@
       onload($e);
     }
 
-    // handle load complete
+    // handle element load complete
     function onload(e) {
 
       // remove loading and add loaded class to all elements
@@ -63,19 +63,19 @@
     function process() {
       var inview = elements.filter(function() {
         var $e = $(this);
-        if ($e.is(':hidden')) return;
+        if ($e.css('display') == 'none') return;
 
         // If no Doctype is declared jquery's $(window).height() does not work properly
         // See http://stackoverflow.com/a/25274520/322253
         // Therefore use innerHeight instead (if it's available)
-        var viewportHeight = (typeof window.innerHeight !== 'undefined') ? window.innerHeight : $w.height()
-        
+        var viewportHeight = (typeof window.innerHeight !== 'undefined') ? window.innerHeight : $w.height();
+
         var wt = $w.scrollTop(),
             wb = wt + viewportHeight,
             et = $e.offset().top,
             eb = et + $e.height();
-      
-        return eb >= wt - options.threshold && 
+
+        return eb >= wt - options.threshold &&
           et <= wb + options.threshold;
       });
 
@@ -109,10 +109,21 @@
     if (options.live) {
       $(document).ajaxSuccess(function(ev, xhr, settings) {
         var $e = $(selector).not('.lazy-loaded').not('.lazy-loading');
-        
+
         elements = elements.add($e);
         init($e);
       });
+    }
+    
+    // be printer friendly and show all elements on document print
+    if (options.printable && window.matchMedia) {
+        window
+            .matchMedia('print')
+            .addListener(function (mql) {
+                if (mql.matches) {
+                    $(selector).trigger('lazyload');
+                }
+            });
     }
 
     init(this);

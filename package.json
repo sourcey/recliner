@@ -1,7 +1,7 @@
 {
   "name": "jquery-recliner",
   "version": "0.2.2",
-  "description": "Lightweight plugin for lazy loading images and other dynamic content.",
+  "description": "Lightweight plugin for lazy loading images and dynamic content",
   "main": "recliner.js",
   "dependencies": {
   },
