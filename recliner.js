@@ -28,7 +28,7 @@
     // load the element source
     function load(e) {
       var $e = $(e),
-        source = $e.attr(options.attrib);
+        source = $e.attr(options.attrib),
         type = $e.prop('tagName');
       if (source) {
         if (type == 'IMG' || type == 'IFRAME') {
