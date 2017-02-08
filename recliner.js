@@ -32,21 +32,22 @@
         source = $e.attr(options.attrib),
         type = $e.prop('tagName');
       if (source) {
+        $e.addClass('lazy-loading');
         if (type == 'IMG' || type == 'IFRAME') {
           $e.attr('src', source);
+          $e[0].onload = function(ev) { onload($e); };
+        }
+        else if (options.getScript === true) {
+          $.getScript(source, function(ev) { onload($e); });
         }
         else {
-
           // ajax load non image and iframe elements
-          $e.addClass('lazy-loading');
-          $e.load(source, function(ev) {
-            onload($e);
-          });
-          return;
+          $e.load(source, function(ev) { onload($e); });
         }
       }
-
-      onload($e);
+      else {
+        onload($e); // set as loaded if no action taken
+      }
     }
 
     // handle element load complete
@@ -121,9 +122,9 @@
         window
           .matchMedia('print')
           .addListener(function (mql) {
-              if (mql.matches) {
-                  $(selector).trigger('lazyload');
-              }
+            if (mql.matches) {
+              $(selector).trigger('lazyload');
+            }
           });
     }
 
