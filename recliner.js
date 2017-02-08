@@ -22,13 +22,14 @@
 	      throttle: 300,      // millisecond interval at which to process events
 	      threshold: 100,     // scroll distance from element before its loaded
 	      printable: true,    // be printer friendly and show all elements on document print
-	      live: true          // auto bind lazy loading to ajax loaded elements
+	      live: true,         // auto bind lazy loading to ajax loaded elements
+        getScript: false    // load content with `getScript` rather than `ajax`
       }, options);
 
     // load the element source
     function load(e) {
       var $e = $(e),
-        source = $e.attr(options.attrib);
+        source = $e.attr(options.attrib),
         type = $e.prop('tagName');
       if (source) {
         if (type == 'IMG' || type == 'IFRAME') {
@@ -71,9 +72,9 @@
         var viewportHeight = (typeof window.innerHeight !== 'undefined') ? window.innerHeight : $w.height();
 
         var wt = $w.scrollTop(),
-            wb = wt + viewportHeight,
-            et = $e.offset().top,
-            eb = et + $e.height();
+          wb = wt + viewportHeight,
+          et = $e.offset().top,
+          eb = et + $e.height();
 
         return eb >= wt - options.threshold &&
           et <= wb + options.threshold;
@@ -114,16 +115,16 @@
         init($e);
       });
     }
-    
+
     // be printer friendly and show all elements on document print
     if (options.printable && window.matchMedia) {
         window
-            .matchMedia('print')
-            .addListener(function (mql) {
-                if (mql.matches) {
-                    $(selector).trigger('lazyload');
-                }
-            });
+          .matchMedia('print')
+          .addListener(function (mql) {
+              if (mql.matches) {
+                  $(selector).trigger('lazyload');
+              }
+          });
     }
 
     init(this);
