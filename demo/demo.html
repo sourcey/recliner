@@ -4,8 +4,14 @@
     <meta charset="utf-8">
     <title>Recliner.js Lazy Load Demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script src="../recliner.min.js"></script>
+    <!--
+    when using jquery.v1, <embed> would not load (i dont know why)
+    -->
+    <!-- <script src="//code.jquery.com/jquery-1.11.2.min.js"></script> -->
+    <!-- <script src="//code.jquery.com/jquery-1.12.4.min.js"></script> -->
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="../recliner.js"></script>
 
     <script>
         $(function() {
@@ -63,6 +69,12 @@
 
     <h3>Image 4</h3>
     <img class="lazy" data-src="http://sourcey.com/images/stock/logic-vs-art-320x200.jpg" />
+
+    <h3>Video Element</h3>
+    <video class="lazy" data-src="//www.quirksmode.org/html5/videos/big_buck_bunny.mp4" controls></video>
+
+    <h3>Embed Element (SWF)</h3>
+    <embed class="lazy" data-src="//anovsiradj.github.io/code/flex/twbs/btnlike.swf" type="application/x-shockwave-flash"/>
 
     <h3>IFrame Element</h3>
     <iframe class="lazy" data-src="randomcontent.html" frameborder="0" vspace="0" hspace="0"></iframe>
