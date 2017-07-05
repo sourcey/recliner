@@ -33,7 +33,10 @@
         type = $e.prop('tagName');
       if (source) {
         $e.addClass('lazy-loading');
-        if (type == 'IMG' || type == 'IFRAME') {
+
+        // elements with [src] attribute: <audio>, <embed>, <iframe>, <img>, <input>, <script>, <source>, <track>, <video> (https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes)
+        // excepts: <input>, <script> (use options.getScript instead)
+        if (/^(IMG|IFRAME|AUDIO|EMBED|SOURCE|TRACK|VIDEO)$/.test(type)) {
           $e.attr('src', source);
           $e[0].onload = function(ev) { onload($e); };
         }
@@ -132,4 +135,4 @@
     return this;
   };
 
-})(window.jQuery);
+})(jQuery);
