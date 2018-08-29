@@ -65,8 +65,6 @@
 
     // Process the next elements in the queue
     function process() {
-      console.log('process lazy loading')
-
       // If no Doctype is declared jQuery's $(window).height() does not work properly
       // See http://stackoverflow.com/a/25274520/322253
       // Therefore use innerHeight instead (if available)
