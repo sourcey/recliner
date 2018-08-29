@@ -11,22 +11,21 @@
 ;(function($) {
 
   $.fn.recliner = function(options) {
-
     var $w = $(window),
       elements = this,
       selector = this.selector,
       loaded,
       timer,
       options = $.extend({
-        attrib: "data-src", // selector for attribute containing the media src
-	      throttle: 300,      // millisecond interval at which to process events
-	      threshold: 100,     // scroll distance from element before its loaded
-	      printable: true,    // be printer friendly and show all elements on document print
-	      live: true,         // auto bind lazy loading to ajax loaded elements
-        getScript: false    // load content with `getScript` rather than `ajax`
+        attrib: 'data-src', // Selector for attribute containing the media src
+	      throttle: 300,      // Millisecond interval at which to process events
+	      threshold: 100,     // Scroll distance from element before its loaded
+	      printable: true,    // Be printer friendly and show all elements on document print
+	      live: true,         // Auto bind lazy loading to ajax loaded elements
+        getScript: false    // Load content with `getScript` rather than `ajax`
       }, options);
 
-    // load the element source
+    // Load the element source
     function load(e) {
       var $e = $(e),
         source = $e.attr(options.attrib),
@@ -34,17 +33,17 @@
       if (source) {
         $e.addClass('lazy-loading');
 
-        // elements with [src] attribute: <audio>, <embed>, <iframe>, <img>, <input>, <script>, <source>, <track>, <video> (https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes)
-        // excepts: <input>, <script> (use options.getScript instead)
+        // Elements with [src] attribute: <audio>, <embed>, <iframe>, <img>, <input>, <script>, <source>, <track>, <video> (https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes)
+        // Excepts: <input>, <script> (use options.getScript instead)
         if (/^(IMG|IFRAME|AUDIO|EMBED|SOURCE|TRACK|VIDEO)$/.test(type)) {
           $e.attr('src', source);
           $e[0].onload = function(ev) { onload($e); };
         }
-        else if (options.getScript === true) {
+        else if ($e.data('script')) {
           $.getScript(source, function(ev) { onload($e); });
         }
         else {
-          // ajax load non image and iframe elements
+          // Ajax load non image and iframe elements
           $e.load(source, function(ev) { onload($e); });
         }
       }
@@ -53,66 +52,72 @@
       }
     }
 
-    // handle element load complete
+    // Handle element load complete
     function onload(e) {
 
-      // remove loading and add loaded class to all elements
+      // Remove loading and add loaded class to all elements
       e.removeClass('lazy-loading');
       e.addClass('lazy-loaded');
 
-      // handle lazyshow event for custom processing
+      // Handle lazyshow event for custom processing
       e.trigger('lazyshow');
     }
 
-    // process the next elements in the queue
+    // Process the next elements in the queue
     function process() {
+      console.log('process lazy loading')
+
+      // If no Doctype is declared jQuery's $(window).height() does not work properly
+      // See http://stackoverflow.com/a/25274520/322253
+      // Therefore use innerHeight instead (if available)
+      var viewportHeight = (typeof window.innerHeight !== 'undefined') ? window.innerHeight : $w.height();
+
+      // Detect if the scroll position is at the bottom of the page
+      var eof = (window.innerHeight + window.scrollY) >= document.body.offsetHeight;
+
+      // elements = elements.not('.lazy-loaded').not('.lazy-loading');
       var inview = elements.filter(function() {
         var $e = $(this);
         if ($e.css('display') == 'none') return;
-
-        // If no Doctype is declared jquery's $(window).height() does not work properly
-        // See http://stackoverflow.com/a/25274520/322253
-        // Therefore use innerHeight instead (if it's available)
-        var viewportHeight = (typeof window.innerHeight !== 'undefined') ? window.innerHeight : $w.height();
 
         var wt = $w.scrollTop(),
           wb = wt + viewportHeight,
           et = $e.offset().top,
           eb = et + $e.height();
 
-        return eb >= wt - options.threshold &&
-          et <= wb + options.threshold;
+        return (eb >= wt - options.threshold &&
+          et <= wb + options.threshold) || eof;
       });
 
-      loaded = inview.trigger("lazyload");
+      loaded = inview.trigger('lazyload');
       elements = elements.not(loaded);
     }
 
-    // initialize elements for lazy loading
+    // Initialize elements for lazy loading
     function init(els) {
 
-      // bind the lazyload event for loading elements
-      els.one("lazyload", function() {
+      // Bind the lazyload event for loading elements
+      els.one('lazyload', function() {
         load(this);
       });
 
       process();
     }
 
-    // bind lazy loading events
-    $w.on("scroll.lazy resize.lazy lookup.lazy", function(ev) {
+    // Bind lazy loading events
+    $w.on('scroll.lazy resize.lazy lookup.lazy', function(ev) {
       if (timer)
         clearTimeout(timer); // throttle events for best performance
-      timer = setTimeout(function() { $w.trigger("lazyupdate"); }, options.throttle);
+      timer = setTimeout(function() { $w.trigger('lazyupdate'); }, options.throttle);
     });
 
-    $w.on("lazyupdate", function(ev) {
+    $w.on('lazyupdate.lazy', function(ev) {
       process();
     });
 
-    // handle elements loaded into the dom via ajax
+    // Handle elements loaded into the dom via ajax
     if (options.live) {
-      $(document).ajaxSuccess(function(ev, xhr, settings) {
+      $(document).on('ajaxSuccess.lazy', function() {
         var $e = $(selector).not('.lazy-loaded').not('.lazy-loading');
 
         elements = elements.add($e);
@@ -120,7 +125,7 @@
       });
     }
 
-    // be printer friendly and show all elements on document print
+    // Be printer friendly and show all elements on document print
     if (options.printable && window.matchMedia) {
         window
           .matchMedia('print')
@@ -133,6 +138,14 @@
 
     init(this);
     return this;
+  };
+
+  // Unbind Recliner events
+  $.fn.derecliner = function(options) {
+    var $w = $(window);
+    $w.off('scroll.lazy resize.lazy lookup.lazy');
+    $w.off('lazyupdate.lazy');
+    $(document).off('ajaxSuccess.lazy');
   };
 
 })(jQuery);
