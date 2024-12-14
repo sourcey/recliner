@@ -25,6 +25,34 @@
         getScript: false    // Load content with `getScript` rather than `ajax`
       }, options);
 
+    // Add CSS for the flashing box
+    $('<style>').text('\
+      #flashingBox {\
+        position: fixed;\
+        top: 20px;\
+        right: 20px;\
+        width: 100px;\
+        height: 100px;\
+        background-color: rgba(0, 0, 255, 0.7);\
+        display: flex;\
+        justify-content: center;\
+        align-items: center;\
+        font-size: 24px;\
+        color: white;\
+        animation: flash 1s infinite alternate;\
+      }\
+      @keyframes flash {\
+        from { opacity: 1; }\
+        to { opacity: 0.5; }\
+      }\
+    ').appendTo('head');
+
+    // Add the flashing box to the DOM
+    $('<div id="flashingBox">0</div>').appendTo('body');
+
+    // Initialize the counter
+    let imageLoadCounter = 0;
+
     // Load the element source
     function load(e) {
       var $e = $(e),
@@ -54,13 +82,16 @@
 
     // Handle element load complete
     function onload(e) {
-
       // Remove loading and add loaded class to all elements
       e.removeClass('lazy-loading');
       e.addClass('lazy-loaded');
 
       // Handle lazyshow event for custom processing
       e.trigger('lazyshow');
+
+      // Increment the counter and update the flashing box
+      imageLoadCounter++;
+      $('#flashingBox').text(imageLoadCounter);
     }
 
     // Process the next elements in the queue
@@ -93,7 +124,6 @@
 
     // Initialize elements for lazy loading
     function init(els) {
-
       // Bind the lazyload event for loading elements
       els.one('lazyload', function() {
         load(this);

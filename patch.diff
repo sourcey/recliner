@@ -1,0 +1,56 @@
+diff --git a/recliner.js b/recliner.js
+index 1c2d3e4..5f6g7h8 100644
+--- a/recliner.js
++++ b/recliner.js
+@@ -1,5 +1,6 @@
+ /**
+  * Recliner.js
++ * Updated to include a flashing box with a counter for image loads.
+  * A super lightweight production ready jQuery plugin
+  * for lazy loading images and other dynamic content.
+  *
+@@ -20,6 +21,7 @@
+ 
+    // Load the element source
+    function load(e) {
++     var isImage = false;
+      var $e = $(e),
+        source = $e.attr(options.attrib),
+        type = $e.prop('tagName');
+@@ -28,6 +30,7 @@
+        $e.addClass('lazy-loading');
+ 
+        if (/^(IMG|IFRAME|AUDIO|EMBED|SOURCE|TRACK|VIDEO)$/.test(type)) {
++         isImage = true;
+          $e.attr('src', source);
+          $e[0].onload = function(ev) { onload($e, isImage); };
+        }
+@@ -38,7 +41,7 @@
+        }
+      }
+      else {
+-       onload($e); // set as loaded if no action taken
++       onload($e, isImage); // set as loaded if no action taken
+      }
+    }
+ 
+@@ -46,6 +49,22 @@
+    function onload(e) {
+ 
+      e.removeClass('lazy-loading');
+      e.addClass('lazy-loaded');
++
++     // Increment counter if the element is an image
++     if (isImage) {
++       var counter = $('#image-load-counter');
++       var count = parseInt(counter.text(), 10) || 0;
++       counter.text(count + 1);
++     }
++
++     // Flashing box effect
++     var box = $('#flashing-box');
++     box.fadeIn(100).fadeOut(100);
++
+      e.trigger('lazyshow');
+    }
+ 
